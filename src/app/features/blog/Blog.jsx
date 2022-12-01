@@ -1,8 +1,13 @@
+import PostsList from './posts/PostsList';
+
 import './blog.styles.scss';
+
 function Blog() {
   return (
-    <div>
-      <h1>blog</h1>
+    <div className="blog-container">
+      <div className="posts">
+        <PostsList />
+      </div>
     </div>
   );
 }
