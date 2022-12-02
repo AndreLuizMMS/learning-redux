@@ -1,5 +1,6 @@
+//Blog
 .blog-container {
-  background: #121213;
+  background: #242427;
   height: 100vh;
 
   display: flex;
@@ -11,4 +12,78 @@
   height: 100vh;
   width: 45rem;
   background: #36363a;
+  padding: 2rem;
 }
+
+// Add Post form
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  margin-bottom: 1em;
+  background: #242427;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: .5rem 0;
+  color: white;
+
+}
+label {
+  color: white;
+}
+
+main {
+  max-width: 500px;
+  margin: auto;
+}
+
+section {
+  margin-top: 1em;
+
+  & h2{
+    margin-bottom: 10px;
+  }
+}
+
+article {
+  margin: 0.5em 0.5em 0.5em 0;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+h1 {
+  font-size: 3.5rem;
+}
+h1, h2, h3 {
+  color: white;
+
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+  font-size: 1.2rem;
+  margin: 0.5em 0;
+  color: white;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.postCredit {
+  font-size: .8rem;
+}
+
+.reactionButton {
+  margin: 0 0.25em 0 0;
+  background: transparent;
+  border: none;
+  color: whitesmoke;
+  font-size: 1rem;
+}
+
