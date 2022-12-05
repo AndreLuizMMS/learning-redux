@@ -1,15 +1,15 @@
 //Blog
 .blog-container {
   background: #242427;
-  height: 100vh;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
 }
 
 .posts{
-  height: 100vh;
+  min-height: 100vh;
   width: 45rem;
   background: #36363a;
   padding: 2rem;
@@ -87,3 +87,8 @@ form {
   font-size: 1rem;
 }
 
+// Post time
+.time-ago{
+  color:white;
+  font-size: .7rem;
+}

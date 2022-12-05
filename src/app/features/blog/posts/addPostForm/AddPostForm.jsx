@@ -24,7 +24,7 @@ const AddPostForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(postAdded(content, title, userId));
+    dispatch(postAdded(title, content, userId));
     setPost(initialPostState);
   };
 
