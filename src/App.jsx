@@ -1,21 +1,32 @@
-import { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React from 'react';
 
-import Counter from './app/features/counter/Counter';
-import Blog from './app/features/blog/Blog';
-import Navbar from './components/navbar/Navbar';
-
-import './app.scss';
+import Header from './features/header/Header';
+import TodoList from './features/todos/TodoList';
+import Footer from './features/footer/Footer';
+import { useSelector } from 'react-redux';
 
 function App() {
+  const global = useSelector(state => state);
+  // console.log(global);
+
   return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route index element={<Counter />} />
-        <Route path="/blog" element={<Blog />} />
-      </Routes>
-    </>
+    <div className="App">
+      <nav>
+        <section>
+          <h1>Redux Fundamentals Example</h1>
+        </section>
+      </nav>
+      <main>
+        <section className="medium-container">
+          <h2>Todos</h2>
+          <div className="todoapp">
+            <Header />
+            <TodoList />
+            <Footer />
+          </div>
+        </section>
+      </main>
+    </div>
   );
 }
 
