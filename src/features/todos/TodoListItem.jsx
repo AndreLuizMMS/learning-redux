@@ -12,11 +12,10 @@ const selectedTodosByID = (state, todoId) => {
   return state.todos.find(todo => todo.id === todoId);
 };
 
-const TodoListItem = ({ id }) => {
+const TodoListItem = ({ todo }) => {
   const dispatch = useDispatch();
 
-  const todo = useSelector(state => selectedTodosByID(state, id));
-  const { text, completed, color } = todo;
+  const { text, completed, color, id } = todo;
 
   const handleCompletedChanged = e => {
     dispatch({

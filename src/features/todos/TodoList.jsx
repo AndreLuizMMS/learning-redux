@@ -1,18 +1,28 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
+import colorFilteredListItems from './colorFilteredTodos';
 
 import TodoListItem from './TodoListItem';
 
-const selectTodosId = state => state.todos.map(t => t.id);
+import todosSelector from './todosSelector';
+import { colorFiltersSelector } from '../filters/filtersSelector';
 
 const TodoList = () => {
-  const todos = useSelector(selectTodosId);
+  const todos = useSelector(todosSelector);
+  const colorFilter = useSelector(colorFiltersSelector);
 
-  const renderedListItems = todos.map(todoId => {
-    // array de componente
-    return <TodoListItem key={todoId} id={todoId} />;
-  });
+  const renderList = todos.map(todo => <TodoListItem key={todo.id} todo={todo} />);
 
-  return <ul className="todo-list">{renderedListItems}</ul>;
+  const renderFilteredList = colorFilteredListItems(colorFilter, todos).map(todo => (
+    <TodoListItem key={todo.id} todo={todo} />
+  ));
+
+  return (
+    <ul className="todo-list">
+      {!colorFilter.length ? renderList : renderFilteredList}
+      <></>
+    </ul>
+  );
 };
 
 export default TodoList;

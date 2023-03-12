@@ -26,7 +26,6 @@ const StatusFilter = ({ value: status }) => {
   const renderedFilters = Object.keys(StatusFilters).map(key => {
     const value = StatusFilters[key];
     const handleClick = () => {
-      console.log(value);
       dispatch({
         type: FILTER_ACTION_TYPES.statusFilterChanged,
         payload: value
@@ -102,7 +101,6 @@ const Footer = () => {
     todos.forEach(t => {
       if (t.completed) {
         dispatch({ type: TODO_ACTION_TYPES.clearAllCompleted });
-        console.log('rodou');
       }
     });
   };

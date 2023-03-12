@@ -1,9 +1,3 @@
-const initialState = [
-  { id: 0, text: 'Praticar react', completed: true },
-  { id: 1, text: 'Aprender Redux', completed: false, color: 'purple' },
-  { id: 2, text: 'Criar algo funcional!', completed: false, color: 'blue' }
-];
-
 function nextTodoId(todos) {
   const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
   return maxId + 1;
@@ -15,10 +9,11 @@ export const TODO_ACTION_TYPES = {
   colorChanged: 'colorChanged',
   deleted: 'deleted',
   markAllCompleted: 'markAllCompleted',
-  clearAllCompleted: 'clearAllCompleted'
+  clearAllCompleted: 'clearAllCompleted',
+  todosLoaded: 'todosLoaded'
 };
 
-const todosReducer = (state = initialState, action) => {
+const todosReducer = (state = [], action) => {
   switch (action.type) {
     case TODO_ACTION_TYPES.added: {
       return [
@@ -67,9 +62,58 @@ const todosReducer = (state = initialState, action) => {
     case TODO_ACTION_TYPES.clearAllCompleted: {
       return state.filter(t => t.completed == false);
     }
+    case TODO_ACTION_TYPES.todosLoaded: {
+      return action.payload;
+    }
+
     default:
       return state;
   }
 };
+
+export async function fetchTodos(dispatch, getState) {
+  //fakeApi was not working
+  const response = [
+    {
+      color: '',
+      completed: false,
+      text: 'Buy bread',
+      id: 0
+    },
+    {
+      color: '',
+      completed: false,
+      text: 'Read book',
+      id: 1
+    },
+    {
+      color: '',
+      completed: false,
+      text: 'Go jim',
+      id: 2
+    },
+    {
+      color: '',
+      completed: false,
+      text: 'Eat more ',
+      id: 3
+    },
+    {
+      color: '',
+      completed: false,
+      text: 'Code',
+      id: 4
+    },
+    {
+      color: '',
+      completed: false,
+      text: 'Drink coffee',
+      id: 5
+    }
+  ];
+  setTimeout(() => {
+    dispatch({ type: TODO_ACTION_TYPES.todosLoaded, payload: response });
+  }, 1000);
+}
 
 export default todosReducer;

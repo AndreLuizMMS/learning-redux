@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 
 function App() {
   const global = useSelector(state => state);
-  // console.log(global);
 
   return (
     <div className="App">
