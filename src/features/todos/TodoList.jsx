@@ -1,28 +1,43 @@
 import { useSelector } from 'react-redux';
 
-import colorFilteredListItems from './colorFilteredTodos';
+import colorFilteredListItems from '../../utils/colorFilteredTodos';
 
 import TodoListItem from './TodoListItem';
 
-import todosSelector from './todosSelector';
-import { colorFiltersSelector } from '../filters/filtersSelector';
+import todosSelector from '../todos/todos-reducer/todos.selector';
+import { filtersSelector } from '../filters/filter-reducer/filters.selector';
 
 const TodoList = () => {
   const todos = useSelector(todosSelector);
-  const colorFilter = useSelector(colorFiltersSelector);
+  const { status, colors } = useSelector(filtersSelector);
 
-  const renderList = todos.map(todo => <TodoListItem key={todo.id} todo={todo} />);
+  const colorFilteredArray = () => {
+    let temp = [];
+    if (!colors.length) {
+      temp = todos;
+    } else {
+      temp = colorFilteredListItems(colors, todos);
+    }
+    return temp;
+  };
 
-  const renderFilteredList = colorFilteredListItems(colorFilter, todos).map(todo => (
+  const statusFilteredArray = colorFiltered => {
+    if (status == 'All') {
+      return colorFiltered;
+    }
+    if (status == 'Active') {
+      return colorFiltered.filter(t => t.completed == false);
+    }
+    if (status == 'Completed') {
+      return colorFiltered.filter(t => t.completed == true);
+    }
+  };
+
+  const filteredTodos = statusFilteredArray(colorFilteredArray()).map(todo => (
     <TodoListItem key={todo.id} todo={todo} />
   ));
 
-  return (
-    <ul className="todo-list">
-      {!colorFilter.length ? renderList : renderFilteredList}
-      <></>
-    </ul>
-  );
+  return <ul className="todo-list">{filteredTodos}</ul>;
 };
 
 export default TodoList;

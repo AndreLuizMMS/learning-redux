@@ -7,7 +7,7 @@ import App from './App';
 import './main.css';
 
 import store from './store';
-import { fetchTodos } from './features/todos/todosSilce';
+import { fetchTodos } from './features/todos/todos-reducer/todos.slice';
 
 store.dispatch(fetchTodos);
 

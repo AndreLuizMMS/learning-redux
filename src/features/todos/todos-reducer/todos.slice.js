@@ -1,3 +1,5 @@
+import { todosLoaded } from './todos.actions';
+
 function nextTodoId(todos) {
   const maxId = todos.reduce((maxId, todo) => Math.max(todo.id, maxId), -1);
   return maxId + 1;
@@ -112,7 +114,7 @@ export async function fetchTodos(dispatch, getState) {
     }
   ];
   setTimeout(() => {
-    dispatch({ type: TODO_ACTION_TYPES.todosLoaded, payload: response });
+    dispatch(todosLoaded(response));
   }, 1000);
 }
 

@@ -1,16 +1,15 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { capitalize } from '../filters/capitalize';
-import { availableColors } from '../filters/filterSlice';
+import { capitalize } from '../../utils/capitalize';
+import { availableColors } from '../filters/filter-reducer/filter.slice';
 
-import { TODO_ACTION_TYPES } from '../todos/todosSilce';
-import { FILTER_ACTION_TYPES } from '../filters/filterSlice';
+import {
+  todoToggled,
+  colorChanged,
+  deleteTodo
+} from '../todos/todos-reducer/todos.actions';
 
 import TimesSolid from './timesSolid.svg';
-
-const selectedTodosByID = (state, todoId) => {
-  return state.todos.find(todo => todo.id === todoId);
-};
 
 const TodoListItem = ({ todo }) => {
   const dispatch = useDispatch();
@@ -18,21 +17,15 @@ const TodoListItem = ({ todo }) => {
   const { text, completed, color, id } = todo;
 
   const handleCompletedChanged = e => {
-    dispatch({
-      type: TODO_ACTION_TYPES.toggled,
-      payload: { completed: completed, id: id }
-    });
+    dispatch(todoToggled(id, completed));
   };
 
   const handleColorChanged = e => {
-    dispatch({
-      type: TODO_ACTION_TYPES.colorChanged,
-      payload: { color: e.target.value, id: id }
-    });
+    dispatch(colorChanged(e, id));
   };
 
-  const handleDelete = e => {
-    dispatch({ type: TODO_ACTION_TYPES.deleted, payload: id });
+  const handleDelete = () => {
+    dispatch(deleteTodo(id));
   };
 
   const colorOptions = availableColors.map(c => (

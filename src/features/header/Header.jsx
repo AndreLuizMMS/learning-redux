@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { TODO_ACTION_TYPES } from '../todos/todosSilce';
+import { todoAdded } from '../todos/todos-reducer/todos.actions';
 
 const Header = () => {
   const [text, setText] = useState('');
@@ -14,7 +14,7 @@ const Header = () => {
     if (text == '') {
       return;
     }
-    dispatch({ type: TODO_ACTION_TYPES.added, payload: text });
+    dispatch(todoAdded(text));
     setText('');
   };
 

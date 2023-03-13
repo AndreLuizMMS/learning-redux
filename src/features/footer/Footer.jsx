@@ -1,13 +1,19 @@
 import { useSelector, useDispatch } from 'react-redux';
 
-import { capitalize } from '../filters/capitalize';
-import {
-  StatusFilters,
-  availableColors,
-  FILTER_ACTION_TYPES
-} from '../filters/filterSlice';
+import { capitalize } from '../../utils/capitalize';
 
-import { TODO_ACTION_TYPES } from '../todos/todosSilce';
+import { StatusFilters, availableColors } from '../filters/filter-reducer/filter.slice';
+
+import {
+  statusFilterChanged,
+  colorFilterAdded,
+  colorFilterRemoved
+} from '../filters/filter-reducer/filter.actions';
+
+import {
+  markAllCompleted,
+  clearAllCompleted
+} from '../todos/todos-reducer/todos.actions';
 
 const RemainingTodos = ({ count }) => {
   const suffix = count === 1 ? '' : 's';
@@ -26,11 +32,9 @@ const StatusFilter = ({ value: status }) => {
   const renderedFilters = Object.keys(StatusFilters).map(key => {
     const value = StatusFilters[key];
     const handleClick = () => {
-      dispatch({
-        type: FILTER_ACTION_TYPES.statusFilterChanged,
-        payload: value
-      });
+      dispatch(statusFilterChanged(value));
     };
+
     const className = value === status ? 'selected' : '';
 
     return (
@@ -58,9 +62,9 @@ const ColorFilters = ({ value: colors }) => {
 
     const handleChange = () => {
       if (!checked) {
-        dispatch({ type: FILTER_ACTION_TYPES.colorFilterAdded, payload: color });
+        dispatch(colorFilterAdded(color));
       } else {
-        dispatch({ type: FILTER_ACTION_TYPES.colorFilterRemoved, payload: color });
+        dispatch(colorFilterRemoved(color));
       }
     };
     return (
@@ -95,12 +99,12 @@ const Footer = () => {
   const { status, colors } = useSelector(state => state.filters);
 
   const handleMarkAllCompleted = e => {
-    dispatch({ type: TODO_ACTION_TYPES.markAllCompleted });
+    dispatch(markAllCompleted());
   };
   const handleClearAllCompleted = e => {
     todos.forEach(t => {
       if (t.completed) {
-        dispatch({ type: TODO_ACTION_TYPES.clearAllCompleted });
+        dispatch(clearAllCompleted());
       }
     });
   };
